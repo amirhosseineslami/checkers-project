@@ -11,14 +11,19 @@ class checkerboard{
         cout << "+---+---+---+---+---+---+---+---+" << endl;
         for(int x = 0 ; x < 8 ; x++){
             for(int y = 0; y < 8; y++){
-                if(x <= 2 && (x + y) % 2 != 0){ 
+                if (x <= 2 && (x + y) % 2 == 0 ){
+                    Oplayer[x][y] = ' ';
+                cout << '|' << setw(2) << Oplayer[x][y] <<  " ";    
+                }
+                else if(x <= 2 && (x + y) % 2 != 0){ 
                     Oplayer[x][y] = 'O';
-                    cout << '|' << setw(2) << Oplayer[x][y] << setw(2) << '|' << "   "; 
+                    cout << '|' << setw(2) << Oplayer[x][y] << " "; 
 
                 }
-                else if(((x + y) % 2 != 0) && x >= 5){
+                
+                if(((x + y) % 2 != 0) && x >= 5){
                     starplayer[x][y] = '*';
-                    cout << '|' << setw(2) << starplayer[x][y] << setw(2) << '|'; 
+                    cout << '|' << setw(2) << starplayer[x][y] << setw(2) << '|' << "   "; 
                 }
             }
             cout << endl;
