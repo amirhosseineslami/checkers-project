@@ -33,7 +33,8 @@ class checkerboard{
 
                 }
             }
-            cout << "|" << setw(2) << x + 1 << endl;
+            cout << "|" ;
+            cout << setw(2) << x + 1 << endl;
             cout << "+---+---+---+---+---+---+---+---+" << endl;
         }
     } 
