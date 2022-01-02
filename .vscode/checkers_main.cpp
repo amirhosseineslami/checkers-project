@@ -20,12 +20,20 @@ class checkerboard{
                     cout << '|' << setw(2) << Oplayer[x][y] << " "; 
 
                 }
-                
+                if(x > 2 && x < 5 ){
+                    cout << '|' << setw(4);
+                }
                 if(((x + y) % 2 != 0) && x >= 5){
                     starplayer[x][y] = '*';
-                    cout << '|' << setw(2) << starplayer[x][y] << setw(2) << '|' << "   "; 
+                    cout << '|' << setw(2) << starplayer[x][y] <<  " "; 
+                }
+                else if(x >= 5 && (x + y) % 2 == 0){ 
+                    Oplayer[x][y] = ' ';
+                    cout << '|' << setw(2) << Oplayer[x][y] << " "; 
+
                 }
             }
+            cout << "|";
             cout << endl;
             cout << "+---+---+---+---+---+---+---+---+";
             cout << endl;
