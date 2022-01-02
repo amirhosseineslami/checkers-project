@@ -9,4 +9,7 @@ cout<<"it is updated by amir hossein"<<endl;
 cout<<"it is updated again by him"<<endl;
 cout << "KHIKHIKHIKHIKHIKHIHKHI" << endl;
 cout << "CTRL + SHIFT + P" << endl;
+    for(int i = 0; i < 7; i++ ){
+        cout << "Ridam Tu VScode" << endl;
+    }
 }
