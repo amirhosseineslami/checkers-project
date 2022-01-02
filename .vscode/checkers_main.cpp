@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <math.h>
 using namespace std;
 
 class checkerboard{
@@ -10,15 +11,18 @@ class checkerboard{
         cout << "+---+---+---+---+---+---+---+---+" << endl;
         for(int x = 0 ; x < 8 ; x++){
             for(int y = 0; y < 8; y++){
-                if(((x + y) % 2 != 0) && x <= 2){ 
+                if(x <= 2 && (x + y) % 2 != 0){ 
                     Oplayer[x][y] = 'O';
-                    cout << '|' << setw(2) << Oplayer[x][y] << setw(2) << '|'; 
+                    cout << '|' << setw(2) << Oplayer[x][y] << setw(2) << '|' << "   "; 
+
                 }
-                else if(x >= 5){
+                else if(((x + y) % 2 != 0) && x >= 5){
                     starplayer[x][y] = '*';
                     cout << '|' << setw(2) << starplayer[x][y] << setw(2) << '|'; 
                 }
             }
+            cout << endl;
+            cout << "+---+---+---+---+---+---+---+---+";
             cout << endl;
         }
     } 
