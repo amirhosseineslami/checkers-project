@@ -33,10 +33,8 @@ class checkerboard{
 
                 }
             }
-            cout << "|";
-            cout << endl;
-            cout << "+---+---+---+---+---+---+---+---+";
-            cout << endl;
+            cout << "|" << setw(2) << x + 1 << endl;
+            cout << "+---+---+---+---+---+---+---+---+" << endl;
         }
     } 
     void printBoard(){
