@@ -4,6 +4,7 @@
 using namespace std;
 
 int main(){
-cout<<"checkers testing code is running!";
-cout<<"it is updated by amir hossein";
+cout<<"checkers testing code is running!"<<endl;
+cout<<"it is updated by amir hossein"<<endl;
+cout<<"it is updated again by him"<<endl;
 }
