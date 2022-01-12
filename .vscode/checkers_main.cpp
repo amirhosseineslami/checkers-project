@@ -5,7 +5,23 @@
 #include <math.h>
 using namespace std;
 
-class checkerboard{
+class Bead {
+    private:
+    int x , y ;
+    bool isKing = false;
+
+    public:
+    Bead(int , int , bool);
+
+};
+Bead::Bead(int inputx , int inputy , bool inputIsKing){
+    x = inputx;
+    y = inputy;
+    isKing = inputIsKing;
+}
+
+
+class checkerboard {
     public:
     void initBoard(){//this is a function for initializing the board
         cout << "  a   b   c   d   e   f   g   h" << endl;
