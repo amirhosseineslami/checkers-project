@@ -29,11 +29,10 @@ void printTable();
 // ******functions******
 
 int main(){
-    const int n = 1;
-    Cell c[n];
     
 
 
+cout<<"test"<<endl;
  return 0;
 }
 
