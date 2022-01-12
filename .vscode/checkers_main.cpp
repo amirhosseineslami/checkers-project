@@ -1,13 +1,10 @@
+
 #include <iostream>
 #include <iomanip>
+#include <string>
+#include <math.h>
 using namespace std;
 
-<<<<<<< HEAD
-class Cell{
-private:
-int x , y;
-bool isEmpty = true;
-=======
 class checkerboard{
     public:
     void initBoard(){//this is a function for initializing the board
@@ -38,46 +35,20 @@ class checkerboard{
                 }
             }
             cout << "|" << setw(2) << x + 1 << endl;
+            cout << "|" ;
+            cout << setw(2) << x + 1 << endl;
             cout << "+---+---+---+---+---+---+---+---+" << endl;
         }
     } 
     void printBoard(){
->>>>>>> parent of 2a9021f (Last Board)
 
-// ****** cell class ******
-public:
-    Cell(int = 0 , int = 0);
-    void setState(bool b){
-    isEmpty = b;
-}
-};
-
-Cell::Cell(int ix , int iy){
-    x = ix;
-    y = iy;
-}
-// ****** cell class ******
-
-
-
-// ******functions******
-void printTable();
-
-// ******functions******
-
-int main(){
-    
-
-
-cout<<"test"<<endl;
- return 0;
-}
-
-void printTable(Cell cell[]){
-    cout<<"  +---+---+---+---+---+---+---+---+\n";
-    for(int i = 0 ; i<4 ; i++){
-        
     }
-    cout<<"    a   b   c   d   e   f   g   h\n";
-
+    private:
+    char board[8][8];
+    char Oplayer[8][8];
+    char starplayer[8][8];
+};
+int main(){
+    checkerboard board;
+        board.initBoard(); 
 }
