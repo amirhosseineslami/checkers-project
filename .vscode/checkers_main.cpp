@@ -4,7 +4,6 @@
 #include <string>
 #include <math.h>
 using namespace std;
-
 class Bead {
     private:
     int x , y ;
@@ -14,12 +13,12 @@ class Bead {
     Bead(int , int , bool);
 
 };
+// based on details of every cells of board
 Bead::Bead(int inputx , int inputy , bool inputIsKing){
     x = inputx;
     y = inputy;
     isKing = inputIsKing;
 }
-
 
 class checkerboard {
     public:
@@ -64,7 +63,9 @@ class checkerboard {
     char Oplayer[8][8];
     char starplayer[8][8];
 };
+
 int main(){
+    
     checkerboard board;
         board.initBoard(); 
 }
