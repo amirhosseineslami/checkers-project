@@ -51,7 +51,7 @@ int main()
         {
             cout << "(White's turn!)" << endl;
 
-            // get the input of position for define the bead.
+            // get the position of the bead that wanted to move from user
             int beadPositionX, beadPositionY;
             bool beadExist = false;
             while (!beadExist)
@@ -62,32 +62,38 @@ int main()
                 // check if there is any white bead in that position
                 if (beadIndex < 0)
                 {
+                    // there isn't any bead
                     cout << "There isn't any white bead in that position!" << endl;
                 }
                 else
+                // a bead is found
                     beadExist = true;
             }
+
+            
+
 
         }
 
         // black's turn
-        else if (turn == "black")
+        else if (turn == "black"){
             cout << "(Black's turn!)" << endl;
-            int beadPositionX, beadPositionY;
-            bool beadExist = false;
-            while (!beadExist)
+        int beadPositionX, beadPositionY;
+        bool beadExist = false;
+        while (!beadExist)
+        {
+            getInputPositionFromUser(&beadPositionX, &beadPositionY, 1);
+            cout << "the position has been gotten (" << beadPositionX << " " << beadPositionY << endl;
+            int beadIndex = getExistBeadIndex(blackBeads, beadPositionX, beadPositionY);
+            // check if there is any black bead in that position
+            if (beadIndex < 0)
             {
-                getInputPositionFromUser(&beadPositionX, &beadPositionY, 1);
-                cout << "the position has been gotten (" << beadPositionX << " " << beadPositionY << endl;
-                int beadIndex = getExistBeadIndex(blackBeads, beadPositionX, beadPositionY);
-                // check if there is any black bead in that position
-                if (beadIndex < 0)
-                {
-                    cout << "There isn't any black bead in that position!" << endl;
-                }
-                else
-                    beadExist = true;
+                cout << "There isn't any black bead in that position!" << endl;
             }
+            else
+                beadExist = true;
+        }
+        }
 
         cout << "End!";
         break;
@@ -264,19 +270,28 @@ void getInputPositionFromUser(int *x, int *y, int status)
             {
                 cout << "put a number from 1 to 8 : ";
                 char temp[arSize];
-                cin>>temp;
+                cin >> temp;
                 string tempInput;
-                cin>>tempInput;
-                if (tempInput == "1")*y = 1;
-                else if (tempInput == "2")*y = 2;
-                else if (tempInput == "3")*y = 3;
-                else if (tempInput == "4")*y = 4;
-                else if (tempInput == "5")*y = 5;
-                else if (tempInput == "6")*y = 6;
-                else if (tempInput == "7")*y = 7;
-                else if (tempInput == "8")*y = 8;
-                else continue;
-                
+                cin >> tempInput;
+                if (tempInput == "1")
+                    *y = 1;
+                else if (tempInput == "2")
+                    *y = 2;
+                else if (tempInput == "3")
+                    *y = 3;
+                else if (tempInput == "4")
+                    *y = 4;
+                else if (tempInput == "5")
+                    *y = 5;
+                else if (tempInput == "6")
+                    *y = 6;
+                else if (tempInput == "7")
+                    *y = 7;
+                else if (tempInput == "8")
+                    *y = 8;
+                else
+                    continue;
+
                 if (*y < 1 || *y > 8)
                 {
                     cout << "Your input isn't correct!" << endl;
