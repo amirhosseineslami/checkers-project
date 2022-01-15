@@ -3,12 +3,15 @@
 #include <string>
 #include <math.h>
 #include <vector>
+#include <stdio.h>
+
 // white : $ black : #
 using namespace std;
 // size of the board
 const int boardSize = 8;
 // if it become true the game will be finished
 bool exitState = false;
+const int arSize = 50;
 
 class Bead
 {
@@ -260,7 +263,20 @@ void getInputPositionFromUser(int *x, int *y, int status)
             while (!correctInputY)
             {
                 cout << "put a number from 1 to 8 : ";
-                cin >> *y;
+                char temp[arSize];
+                cin>>temp;
+                string tempInput;
+                cin>>tempInput;
+                if (tempInput == "1")*y = 1;
+                else if (tempInput == "2")*y = 2;
+                else if (tempInput == "3")*y = 3;
+                else if (tempInput == "4")*y = 4;
+                else if (tempInput == "5")*y = 5;
+                else if (tempInput == "6")*y = 6;
+                else if (tempInput == "7")*y = 7;
+                else if (tempInput == "8")*y = 8;
+                else continue;
+                
                 if (*y < 1 || *y > 8)
                 {
                     cout << "Your input isn't correct!" << endl;
