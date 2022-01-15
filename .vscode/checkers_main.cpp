@@ -1,15 +1,15 @@
-
 #include <iostream>
 #include <iomanip>
 #include <string>
 #include <math.h>
+#include <vector>
+// white : $ black : #
 using namespace std;
+const int boardSize = 8;
 class Bead {
-    private:
+    public:
     int x , y ;
     bool isKing = false;
-
-    public:
     Bead(int , int , bool);
 
 };
@@ -19,53 +19,69 @@ Bead::Bead(int inputx , int inputy , bool inputIsKing){
     y = inputy;
     isKing = inputIsKing;
 }
-
-class checkerboard {
-    public:
-    void initBoard(){//this is a function for initializing the board
-        cout << "  a   b   c   d   e   f   g   h" << endl;
-        cout << "+---+---+---+---+---+---+---+---+" << endl;
-        for(int x = 0 ; x < 8 ; x++){
-            for(int y = 0; y < 8; y++){
-                if (x <= 2 && (x + y) % 2 == 0 ){
-                    Oplayer[x][y] = ' ';
-                cout << '|' << setw(2) << Oplayer[x][y] <<  " ";    
-                }
-                else if(x <= 2 && (x + y) % 2 != 0){ 
-                    Oplayer[x][y] = 'O';
-                    cout << '|' << setw(2) << Oplayer[x][y] << " "; 
-
-                }
-                if(x > 2 && x < 5 ){
-                    cout << '|' << setw(4);
-                }
-                if(((x + y) % 2 != 0) && x >= 5){
-                    starplayer[x][y] = '*';
-                    cout << '|' << setw(2) << starplayer[x][y] <<  " "; 
-                }
-                else if(x >= 5 && (x + y) % 2 == 0){ 
-                    Oplayer[x][y] = ' ';
-                    cout << '|' << setw(2) << Oplayer[x][y] << " "; 
-
-                }
-            }
-            cout << "|" << setw(2) << x + 1 << endl;
-            cout << "|" ;
-            cout << setw(2) << x + 1 << endl;
-            cout << "+---+---+---+---+---+---+---+---+" << endl;
-        }
-    } 
-    void printBoard(){
-
-    }
-    private:
-    char board[8][8];
-    char Oplayer[8][8];
-    char starplayer[8][8];
-};
+int getExistBeadIndex(vector<Bead> beads , int x , int y);
+void printBoard(vector<Bead> whiteBeads , vector<Bead> blackBeads);
 
 int main(){
-    
-    checkerboard board;
-        board.initBoard(); 
+    vector<Bead> whiteBeads , blackBeads;
+    Bead b(1 , 2 , true);
+    Bead b2(3 , 2 , false);
+    whiteBeads.push_back(b);
+    blackBeads.push_back(b2);
+    printBoard(whiteBeads , blackBeads);
+}
+
+void printBoard(vector<Bead> whiteBeads , vector<Bead> blackBeads){
+    // based for saving the index of the bead that is in that special cell
+    int existWhiteIndex , existBlackIndex;
+    cout << "    a   b   c   d   e   f   g   h" << endl;
+    for(int j = 1 ; j<=boardSize ; j++){
+    cout << "  +---+---+---+---+---+---+---+---+" << endl;
+        cout<<j<<" |";
+        for(int i = 1 ; i<=boardSize ; i++){
+            existWhiteIndex = getExistBeadIndex(whiteBeads , i , j);
+            if(existWhiteIndex<0)existBlackIndex = getExistBeadIndex(blackBeads , i , j);
+            else existBlackIndex = -1;
+            // *if there is any white bead in this cell of the board*
+            if(existWhiteIndex >= 0){
+                // this isn't a king bead
+                if(!whiteBeads.at(existWhiteIndex).isKing){
+                    cout<<" $ ";
+                }
+                // this is a king bead
+                else{
+                    cout<<" $*";
+                }
+            }
+            // *if there is any black bead in this cell of the board*
+            else if(existBlackIndex>=0){
+                // this isn't a king bead
+                if(!blackBeads.at(existBlackIndex).isKing){
+                    cout<<" # ";
+                }
+                // this is a king bead
+                else{
+                    cout<<" #*";
+                }
+            }
+            // *if there isn't any bead in this cell of the board
+            else{
+                cout<<"   ";
+            }
+            cout<<"|";
+            }
+            cout<<endl;
+        }
+    cout << "  +---+---+---+---+---+---+---+---+" << endl;
+    }
+int getExistBeadIndex(vector<Bead> beads , int x , int y){
+    int result = -1;
+    for(int i = 0 ; i<beads.size() ; i++){
+        if((beads.at(i).x == x)&&(beads.at(i).y == y)){
+            result = i;
+            break;
+        }
+    }
+    //if(result>=0)cout<<"a Bead found at "<<result<<endl;
+    return result;
 }
