@@ -28,23 +28,47 @@ Bead::Bead(int inputx, int inputy, bool inputIsKing)
     isKing = inputIsKing;
 }
 // (other functions)
-int getExistBeadIndex(vector<Bead> beads, int x, int y);
-void printBoard(vector<Bead> whiteBeads, vector<Bead> blackBeads);
+int getExistBeadIndex(vector<Bead> , int , int );
+void printBoard(vector<Bead>, vector<Bead>);
 void addAllBeads(vector<Bead> *, vector<Bead> *);
 int getWordNumber(char *);
-int getWordNumber(char word);
-void getInputPositionFromUser(int *x, int *y, int status);
-void checkPositionAbleToMoveWhite(vector<Bead> *positions);
-int checkRightSideOfWhite(vector<Bead> whiteBeads , vector<Bead> blackBeads , Bead bead);
+int getWordNumber(char );
+void getInputPositionFromUser(int *, int *, int );
+void checkPositionAbleToMoveWhite(vector<Bead> *);
+int checkRightSideOfWhite(vector<Bead> , vector<Bead> , Bead );
+int checkLeftSideOfWhite(vector<Bead> , vector<Bead>  , Bead );
+int checkLeftSideOfBlack(vector<Bead> , vector<Bead> , Bead);
+int checkRightSideOfBlack(vector<Bead> , vector<Bead> , Bead);
+int checkUpRightSideOfWhiteKing(vector<Bead> , vector<Bead> , Bead );
+int checkUpLeftSideOfWhiteKing(vector<Bead> , vector<Bead>, Bead);
+int checkDownRightSideOfBlackKing(vector<Bead> , vector<Bead> , Bead );
+int checkDownLeftSideOfBlackKing(vector<Bead> , vector<Bead> , Bead );
 
 int main()
 {
     // make the basic form of the game board with its beads
     vector<Bead> whiteBeads, blackBeads;
     addAllBeads(&whiteBeads, &blackBeads);
+    // test
+    Bead test(5 , 4 , true);
+    blackBeads.push_back(test);
+    int testIndex1 = getExistBeadIndex(whiteBeads , 3 , 2);
+    whiteBeads.at(testIndex1).x=1;
+    whiteBeads.at(testIndex1).y=3;
+    int testIndex2 = getExistBeadIndex(whiteBeads , 4 , 3);
+    whiteBeads.at(testIndex2).x=1;
+    whiteBeads.at(testIndex2).y=1;
+    int testIndex = getExistBeadIndex(blackBeads , 6 , 7);
+    blackBeads.at(testIndex).x=3;
+    blackBeads.at(testIndex).y=2;
+    int testIndex3 = getExistBeadIndex(blackBeads , 8 , 7);
+    blackBeads.at(testIndex3).x = 1;
+    blackBeads.at(testIndex3).y = 7;
+
+
     printBoard(whiteBeads, blackBeads);
 
-    string turn = "white";
+    string turn = "black";
     // start of the game
     while (!exitState)
     {
@@ -73,8 +97,10 @@ int main()
             }
         // we have gotten a bead from the user to move
         Bead gottenBead = whiteBeads.at(beadIndex);
-        cout<<checkRightSideOfWhite(whiteBeads , blackBeads , gottenBead);
-            
+        cout<<"Right side: "<<checkRightSideOfWhite(whiteBeads , blackBeads , gottenBead)<<endl;
+        cout<<"Left side: "<<checkLeftSideOfWhite(whiteBeads , blackBeads , gottenBead)<<endl;
+        cout<<"up right side : "<<checkUpRightSideOfWhiteKing(whiteBeads , blackBeads , gottenBead)<<endl;
+        cout<<"up left side : "<<checkUpLeftSideOfWhiteKing(whiteBeads , blackBeads , gottenBead)<<endl;
 
 
         }
@@ -82,13 +108,13 @@ int main()
         // black's turn
         else if (turn == "black"){
             cout << "(Black's turn!)" << endl;
-        int beadPositionX, beadPositionY;
+        int beadPositionX, beadPositionY ,beadIndex;
         bool beadExist = false;
         while (!beadExist)
         {
             getInputPositionFromUser(&beadPositionX, &beadPositionY, 1);
             cout << "the position has been gotten (" << beadPositionX << " " << beadPositionY << endl;
-            int beadIndex = getExistBeadIndex(blackBeads, beadPositionX, beadPositionY);
+            beadIndex = getExistBeadIndex(blackBeads, beadPositionX, beadPositionY);
             // check if there is any black bead in that position
             if (beadIndex < 0)
             {
@@ -97,6 +123,12 @@ int main()
             else
                 beadExist = true;
         }
+        Bead gottenBead = blackBeads.at(beadIndex);
+        cout<<"left side :"<<checkLeftSideOfBlack(whiteBeads , blackBeads , gottenBead)<<endl;
+        cout<<"Right side :"<<checkRightSideOfBlack(whiteBeads , blackBeads , gottenBead)<<endl;
+        cout<<"down right side : "<<checkDownRightSideOfBlackKing(whiteBeads , blackBeads , gottenBead)<<endl;
+        cout<<"down left side : "<<checkDownLeftSideOfBlackKing(whiteBeads , blackBeads , gottenBead)<<endl;
+
         }
 
         cout << "End!";
@@ -268,30 +300,27 @@ void getInputPositionFromUser(int *x, int *y, int status)
         // if the y input is correct it will get x input
         if (*x > 0)
         {
-            cout << *x << endl;
             bool correctInputY = false;
             while (!correctInputY)
             {
                 cout << "put a number from 1 to 8 : ";
-                char temp[arSize];
-                cin >> temp;
-                string tempInput;
+                char tempInput;
                 cin >> tempInput;
-                if (tempInput == "1")
+                if (tempInput == '1')
                     *y = 1;
-                else if (tempInput == "2")
+                else if (tempInput == '2')
                     *y = 2;
-                else if (tempInput == "3")
+                else if (tempInput == '3')
                     *y = 3;
-                else if (tempInput == "4")
+                else if (tempInput == '4')
                     *y = 4;
-                else if (tempInput == "5")
+                else if (tempInput == '5')
                     *y = 5;
-                else if (tempInput == "6")
+                else if (tempInput == '6')
                     *y = 6;
-                else if (tempInput == "7")
+                else if (tempInput == '7')
                     *y = 7;
-                else if (tempInput == "8")
+                else if (tempInput == '8')
                     *y = 8;
                 else
                     continue;
@@ -362,6 +391,328 @@ int checkRightSideOfWhite(vector<Bead> whiteBeads , vector<Bead> blackBeads , Be
                         // in the position (x+2 , y+2) that is exist in the board , there isn't any bead.
                         moveResult +=2;
                         x += 2;
+                        y += 2;
+                    }
+                    // there isn't any position like this or it is occupied
+                    else finish = true;
+                }
+                else {
+                    // there isn't any bead
+                    if(moveResult == 0)moveResult = 1;
+                    finish = true;
+                    break;
+                }
+            }
+
+
+
+        }
+        else {
+            finish = true;
+            break;
+        }
+
+    }
+
+
+    return moveResult;
+}
+int checkLeftSideOfWhite(vector<Bead> whiteBeads , vector<Bead> blackBeads , Bead bead){
+    // return is the length of the maximum move
+    int moveResult = 0;
+    bool finish = false;
+    for(int x = bead.x , y = bead.y ; (!finish) && (isInTheBoard(x , y)) ; ){
+        // step one
+        if(isInTheBoard(x-1 , y+1)){
+            // it's in the board
+            if(getExistBeadIndex(whiteBeads , x-1 , y+1)>=0){
+                // there is a white bead
+                finish = true; break;
+            }
+            else {
+                // there is't any white bead
+                if(getExistBeadIndex(blackBeads , x-1 , y+1)>=0){
+                    // there is a black bead there
+                    if(isInTheBoard(x-2 , y+2) && getExistBeadIndex(blackBeads , x-2 , y+2)<0 && getExistBeadIndex(whiteBeads , x-2 , y+2)<0){
+                        // in the position (x-2 , y+2) that is exist in the board , there isn't any bead.
+                        moveResult +=2;
+                        x -= 2;
+                        y += 2;
+                    }
+                    // there isn't any position like this or it is occupied
+                    else finish = true;
+                }
+                else {
+                    // there isn't any bead
+                    if(moveResult == 0)moveResult = 1;
+                    finish = true;
+                    break;
+                }
+            }
+
+
+
+        }
+        else {
+            finish = true;
+            break;
+        }
+
+    }
+
+
+    return moveResult;
+}
+int checkLeftSideOfBlack(vector<Bead> whiteBeads , vector<Bead> blackBeads , Bead bead){
+    // return is the length of the maximum move
+    int moveResult = 0;
+    bool finish = false;
+    for(int x = bead.x , y = bead.y ; (!finish) && (isInTheBoard(x , y)) ; ){
+        // step one
+        if(isInTheBoard(x-1 , y-1)){
+            // it's in the board
+            if(getExistBeadIndex(blackBeads , x-1 , y-1)>=0){
+                // there is a black bead
+                finish = true; break;
+            }
+            else {
+                // there is't any black bead
+                if(getExistBeadIndex(whiteBeads , x-1 , y-1)>=0){
+                    // there is a white bead there
+                    if(isInTheBoard(x-2 , y-2) && getExistBeadIndex(blackBeads , x-2 , y-2)<0 && getExistBeadIndex(whiteBeads , x-2 , y-2)<0){
+                        // in the position (x-2 , y-2) that is exist in the board , there isn't any bead.
+                        moveResult +=2;
+                        x -= 2;
+                        y -= 2;
+                    }
+                    // there isn't any position like this or it is occupied
+                    else finish = true;
+                }
+                else {
+                    // there isn't any bead
+                    if(moveResult == 0)moveResult = 1;
+                    finish = true;
+                    break;
+                }
+            }
+
+
+
+        }
+        else {
+            finish = true;
+            break;
+        }
+
+    }
+
+
+    return moveResult;
+}
+int checkRightSideOfBlack(vector<Bead> whiteBeads , vector<Bead> blackBeads , Bead bead){
+    // return is the length of the maximum move
+    int moveResult = 0;
+    bool finish = false;
+    for(int x = bead.x , y = bead.y ; (!finish) && (isInTheBoard(x , y)) ; ){
+        // step one
+        if(isInTheBoard(x+1 , y-1)){
+            // it's in the board
+            if(getExistBeadIndex(blackBeads , x+1 , y-1)>=0){
+                // there is a black bead
+                finish = true; break;
+            }
+            else {
+                // there is't any black bead
+                if(getExistBeadIndex(whiteBeads , x+1 , y-1)>=0){
+                    // there is a white bead there
+                    if(isInTheBoard(x+2 , y-2) && getExistBeadIndex(blackBeads , x+2 , y-2)<0 && getExistBeadIndex(whiteBeads , x+2 , y-2)<0){
+                        // in the position (x-2 , y-2) that is exist in the board , there isn't any bead.
+                        moveResult +=2;
+                        x += 2;
+                        y -= 2;
+                    }
+                    // there isn't any position like this or it is occupied
+                    else finish = true;
+                }
+                else {
+                    // there isn't any bead
+                    if(moveResult == 0)moveResult = 1;
+                    finish = true;
+                    break;
+                }
+            }
+
+
+
+        }
+        else {
+            finish = true;
+            break;
+        }
+
+    }
+
+
+    return moveResult;
+}
+int checkUpRightSideOfWhiteKing(vector<Bead> whiteBeads , vector<Bead> blackBeads , Bead bead){
+    // return is the length of the maximum move
+    int moveResult = 0;
+    bool finish = false;
+    for(int x = bead.x , y = bead.y ; (!finish) && (isInTheBoard(x , y)) ; ){
+        // step one
+        if(isInTheBoard(x+1 , y-1)){
+            // it's in the board
+            if(getExistBeadIndex(whiteBeads , x+1 , y-1)>=0){
+                // there is a white bead
+                finish = true; break;
+            }
+            else {
+                // there is't any white bead
+                if(getExistBeadIndex(blackBeads , x+1 , y-1)>=0){
+                    // there is a black bead there
+                    if(isInTheBoard(x+2 , y-2) && getExistBeadIndex(blackBeads , x+2 , y-2)<0 && getExistBeadIndex(whiteBeads , x+2 , y-2)<0){
+                        // in the position (x+2 , y-2) that is exist in the board , there isn't any bead.
+                        moveResult +=2;
+                        x += 2;
+                        y -= 2;
+                    }
+                    // there isn't any position like this or it is occupied
+                    else finish = true;
+                }
+                else {
+                    // there isn't any bead
+                    if(moveResult == 0)moveResult = 1;
+                    finish = true;
+                    break;
+                }
+            }
+
+
+
+        }
+        else {
+            finish = true;
+            break;
+        }
+
+    }
+
+
+    return moveResult;
+}
+int checkUpLeftSideOfWhiteKing(vector<Bead> whiteBeads , vector<Bead> blackBeads , Bead bead){
+    // return is the length of the maximum move
+    int moveResult = 0;
+    bool finish = false;
+    for(int x = bead.x , y = bead.y ; (!finish) && (isInTheBoard(x , y)) ; ){
+        // step one
+        if(isInTheBoard(x-1 , y-1)){
+            // it's in the board
+            if(getExistBeadIndex(whiteBeads , x-1 , y-1)>=0){
+                // there is a white bead
+                finish = true; break;
+            }
+            else {
+                // there is't any white bead
+                if(getExistBeadIndex(blackBeads , x-1 , y-1)>=0){
+                    // there is a black bead there
+                    if(isInTheBoard(x-2 , y-2) && getExistBeadIndex(blackBeads , x-2 , y-2)<0 && getExistBeadIndex(whiteBeads , x-2 , y-2)<0){
+                        // in the position (x-2 , y+2) that is exist in the board , there isn't any bead.
+                        moveResult +=2;
+                        x -= 2;
+                        y -= 2;
+                    }
+                    // there isn't any position like this or it is occupied
+                    else finish = true;
+                }
+                else {
+                    // there isn't any bead
+                    if(moveResult == 0)moveResult = 1;
+                    finish = true;
+                    break;
+                }
+            }
+
+
+
+        }
+        else {
+            finish = true;
+            break;
+        }
+
+    }
+
+
+    return moveResult;
+}
+int checkDownRightSideOfBlackKing(vector<Bead> whiteBeads , vector<Bead> blackBeads , Bead bead){
+    // return is the length of the maximum move
+    int moveResult = 0;
+    bool finish = false;
+    for(int x = bead.x , y = bead.y ; (!finish) && (isInTheBoard(x , y)) ; ){
+        // step one
+        if(isInTheBoard(x+1 , y+1)){
+            // it's in the board
+            if(getExistBeadIndex(blackBeads , x+1 , y+1)>=0){
+                // there is a black bead
+                finish = true; break;
+            }
+            else {
+                // there is't any black bead
+                if(getExistBeadIndex(whiteBeads , x+1 , y+1)>=0){
+                    // there is a white bead there
+                    if(isInTheBoard(x+2 , y+2) && getExistBeadIndex(blackBeads , x+2 , y+2)<0 && getExistBeadIndex(whiteBeads , x+2 , y+2)<0){
+                        // in the position (x-2 , y+2) that is exist in the board , there isn't any bead.
+                        moveResult +=2;
+                        x += 2;
+                        y += 2;
+                    }
+                    // there isn't any position like this or it is occupied
+                    else finish = true;
+                }
+                else {
+                    // there isn't any bead
+                    if(moveResult == 0)moveResult = 1;
+                    finish = true;
+                    break;
+                }
+            }
+
+
+
+        }
+        else {
+            finish = true;
+            break;
+        }
+
+    }
+
+
+    return moveResult;
+}
+int checkDownLeftSideOfBlackKing(vector<Bead> whiteBeads , vector<Bead> blackBeads , Bead bead){
+    // return is the length of the maximum move
+    int moveResult = 0;
+    bool finish = false;
+    for(int x = bead.x , y = bead.y ; (!finish) && (isInTheBoard(x , y)) ; ){
+        // step one
+        if(isInTheBoard(x-1 , y+1)){
+            // it's in the board
+            if(getExistBeadIndex(blackBeads , x-1 , y+1)>=0){
+                // there is a black bead
+                finish = true; break;
+            }
+            else {
+                // there is't any black bead
+                if(getExistBeadIndex(whiteBeads , x-1 , y+1)>=0){
+                    // there is a white bead there
+                    if(isInTheBoard(x-2 , y+2) && getExistBeadIndex(blackBeads , x-2 , y+2)<0 && getExistBeadIndex(whiteBeads , x-2 , y+2)<0){
+                        // in the position (x-2 , y+2) that is exist in the board , there isn't any bead.
+                        moveResult +=2;
+                        x -= 2;
                         y += 2;
                     }
                     // there isn't any position like this or it is occupied
