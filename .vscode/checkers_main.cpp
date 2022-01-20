@@ -53,6 +53,15 @@ bool isBeadInTheList(Bead, vector<Bead>);
 int main()
 {
     cout<<" ***********************************"<<endl<<" ********* Checkers game ***********"<<endl<<" ***********************************"<<endl;
+cout<<"White: $ "<<endl<<"Black: #"<<endl;
+bool isTheGameStarted = false;
+string gamestartString;
+cout<<"Insert (y) to Start The Game."<<endl;
+while (!isTheGameStarted)
+{
+    cin>>gamestartString;
+    if(gamestartString == "y")isTheGameStarted = true;
+}
 
     bool playExit = false;
     while(!playExit){
