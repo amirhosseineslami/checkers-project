@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2025 AmirHossein Eslami
+ * This project is licensed under the MIT License.
+ * See the LICENSE file for details.
+ */
 #include <iostream>
 #include <iomanip>
 #include <string>
